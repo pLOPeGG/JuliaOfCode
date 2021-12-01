@@ -1,4 +1,5 @@
 using ArgParse
+using HTTP
 
 
 function parse_arguments()
@@ -12,12 +13,25 @@ function parse_arguments()
             help = "Day of AoC problem"
             arg_type = Int
     end
-    return parse_args(s)
+    parse_args(s)
+end
+
+function load_aoc_file(year, day)
+    filename = "$(year)/$(day).in"
+    if !isfile(filename)
+        cookie = Dict("session" => read("cookie"))
+        content = HTTP.request(:GET, "https://adventofcode.com/$(year)/day/$(day)/input", cookies=cookie).body |> String
+        open(filename, "w") do io
+            print(io, content)
+        end
+    end
 end
 
 
 function main()
     args = parse_arguments()
+
+    load_aoc_file(args["year"], args["day"])
 
     prgrm_file = """$(args["year"])/$(args["day"]).jl"""
     input_file = """$(args["year"])/$(args["day"]).in"""
