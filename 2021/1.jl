@@ -1,5 +1,4 @@
 using Pipe
-using DSP
 
 const data = parse.(Int, readlines())
 
@@ -7,4 +6,4 @@ const data = parse.(Int, readlines())
 @pipe data |> diff |> count(>(0), _) |> println
 
 # Part Two
-@pipe conv(data, ones(3))[3:end-2] |> diff |> count(>(0), _) |> println
+@pipe data[begin+3:end] - data[begin:end-3] |> count(>(0), _) |> println
