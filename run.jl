@@ -36,7 +36,7 @@ function main()
     prgrm_file = """$(args["year"])/$(args["day"]).jl"""
     input_file = """$(args["year"])/$(args["day"]).in"""
 
-    cmd = `julia -t 6 $prgrm_file`
+    cmd = `julia --project -t 6 $prgrm_file`
     run(pipeline(cmd, stdin = input_file))
 end
 
