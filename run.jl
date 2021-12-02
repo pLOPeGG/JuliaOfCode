@@ -7,11 +7,11 @@ function parse_arguments()
 
     @add_arg_table s begin
         "--year", "-y"
-            help = "Year of AoC contest"
-            arg_type = Int
+        help = "Year of AoC contest"
+        arg_type = Int
         "--day", "-d"
-            help = "Day of AoC problem"
-            arg_type = Int
+        help = "Day of AoC problem"
+        arg_type = Int
     end
     parse_args(s)
 end
@@ -19,8 +19,8 @@ end
 function load_aoc_file(year, day)
     filename = "$(year)/$(day).in"
     if !isfile(filename)
-        cookie = Dict("session" => read("cookie"))
-        content = HTTP.request(:GET, "https://adventofcode.com/$(year)/day/$(day)/input", cookies=cookie).body |> String
+        cookie = Dict("session" => read("cookie", String))
+        content = HTTP.request(:GET, "https://adventofcode.com/$(year)/day/$(day)/input", cookies = cookie).body |> String
         open(filename, "w") do io
             print(io, content)
         end
@@ -37,7 +37,7 @@ function main()
     input_file = """$(args["year"])/$(args["day"]).in"""
 
     cmd = `julia -t 6 $prgrm_file`
-    run(pipeline(cmd, stdin=input_file))
+    run(pipeline(cmd, stdin = input_file))
 end
 
 main()
