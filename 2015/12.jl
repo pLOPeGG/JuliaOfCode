@@ -3,12 +3,12 @@ using JSON
 const data = JSON.parse(readline())
 
 # Remove ternary for part 1
-sum_JSON(d::Dict) = "red" ∉ values(d) ? sum(sum_JSON.(values(d))) : 0
+JSON_value(d::Dict) = "red" ∉ values(d) ? sum(JSON_value.(values(d))) : 0
 
-sum_JSON(a::Vector) = sum(sum_JSON.(a))
+JSON_value(a::Vector) = sum(JSON_value.(a))
 
-sum_JSON(n::Number) = n
+JSON_value(n::Number) = n
 
-sum_JSON(s::String) = 0
+JSON_value(s::String) = 0
 
-sum_JSON(data) |> println
+JSON_value(data) |> println
