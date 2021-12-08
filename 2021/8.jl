@@ -15,8 +15,6 @@ sum(data) do (_, out)
     count(∈((2, 3, 4, 7)), length.(out))
 end |> println
 
-# ------------------------------
-
 # Mapping from segments on to corresponding digit
 const segments2digit = Dict(
     [1, 2, 3, 5, 6, 7]    => 0,
