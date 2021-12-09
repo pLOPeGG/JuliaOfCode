@@ -24,6 +24,12 @@ uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 [[deps.Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 
+[[deps.BenchmarkTools]]
+deps = ["JSON", "Logging", "Printf", "Profile", "Statistics", "UUIDs"]
+git-tree-sha1 = "940001114a0147b6e4d10624276d56d531dd9b49"
+uuid = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+version = "1.2.2"
+
 [[deps.ChainRulesCore]]
 deps = ["Compat", "LinearAlgebra", "SparseArrays"]
 git-tree-sha1 = "f885e7e7c124f8c92650d61b9477b9ac2ee607dd"
@@ -62,6 +68,12 @@ deps = ["Compat", "FFTW", "IterTools", "LinearAlgebra", "Polynomials", "Random",
 git-tree-sha1 = "fe2287966e085df821c0694df32d32b6311c6f4c"
 uuid = "717857b8-e6f2-59f4-9121-6e50c889abd2"
 version = "0.7.4"
+
+[[deps.DataStructures]]
+deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
+git-tree-sha1 = "3daef5523dd2e769dad2365274f760ff5f282c7d"
+uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
+version = "0.18.11"
 
 [[deps.Dates]]
 deps = ["Printf"]
@@ -328,6 +340,10 @@ version = "1.2.2"
 [[deps.Printf]]
 deps = ["Unicode"]
 uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+
+[[deps.Profile]]
+deps = ["Printf"]
+uuid = "9abbd945-dff8-562f-b5e8-e1ebf5ef1b79"
 
 [[deps.REPL]]
 deps = ["InteractiveUtils", "Markdown", "Sockets", "Unicode"]
