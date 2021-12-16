@@ -12,6 +12,16 @@ bits2int(bs) = parse(Int, bs; base = 2)
     Operation(version::Int, op,  operands::Vector{Packet})
 end
 
+function parse_packet(bits)
+    v = bits2int(bits[begin:3])
+    t = bits2int(bits[4:6])
+    packet, incr = @match t begin
+        4 => parse_literal(v, bits[HEADER_SIZE + 1:end])
+        _ => parse_operation(v, t, bits[HEADER_SIZE + 1:end])
+    end
+    packet, incr
+end
+
 function parse_literal(version, bits)
     i, guard, s = 1, '1', []
 
@@ -37,16 +47,6 @@ function parse_operation(version, op, bits)
         end
     end
     Operation(version, op, val), incr
-end
-
-function parse_packet(bits)
-    v = bits2int(bits[begin:3])
-    t = bits2int(bits[4:6])
-    packet, incr = @match t begin
-        4 => parse_literal(v, bits[HEADER_SIZE + 1:end])
-        _ => parse_operation(v, t, bits[HEADER_SIZE + 1:end])
-    end
-    packet, incr
 end
 
 function parse_all_packets(bits)
