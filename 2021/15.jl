@@ -10,11 +10,11 @@ neighbours(pos; expand = 1) =
         1 <= I.I[1] <= size(data, 1) * expand && 1 <= I.I[2] <= size(data, 2) * expand
     end
 
-divmod1(x, y) = (div(x, y) - (rem(x, y) == 0 ? 1 : 0), mod1(x, y))
+div1mod1(x, y) = (div(x, y) - (mod(x, y) == 0 ? 1 : 0), mod1(x, y))
 
 function get_val(data, pos::CartesianIndex)
-    qx, rx = divmod1(pos[1], size(data, 1))
-    qy, ry = divmod1(pos[2], size(data, 2))
+    qx, rx = div1mod1(pos[1], size(data, 1))
+    qy, ry = div1mod1(pos[2], size(data, 2))
 
     reduced_pos = CartesianIndex(rx, ry)
     mod1(data[reduced_pos] + qx + qy, 9)
