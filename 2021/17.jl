@@ -35,5 +35,3 @@ end |> println
 
 # Part Two
 sum(step_until((velx, vely)) for velx in 1:300, vely in -200:300) |> println
-
-
