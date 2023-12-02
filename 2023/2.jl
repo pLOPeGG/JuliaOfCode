@@ -8,7 +8,7 @@ bag = Dict(
 
 const Draw = Dict{String,Int}
 
-struct Qame
+struct Game
     id::Int
     draws::Vector{Draw}
 end
