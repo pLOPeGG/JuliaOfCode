@@ -1,5 +1,6 @@
 using ArgParse
 using HTTP
+using Dates
 
 
 function parse_arguments()
@@ -9,6 +10,7 @@ function parse_arguments()
         "--year", "-y"
         help = "Year of AoC contest"
         arg_type = Int
+        default = year(now())
         "--day", "-d"
         help = "Day of AoC problem"
         arg_type = Int
@@ -20,7 +22,7 @@ function load_aoc_file(year, day)
     filename = "$(year)/$(day).in"
     if !isfile(filename)
         cookie = Dict("session" => read("cookie", String))
-        content = HTTP.request(:GET, "https://adventofcode.com/$(year)/day/$(day)/input", cookies = cookie).body |> String
+        content = HTTP.request(:GET, "https://adventofcode.com/$(year)/day/$(day)/input", cookies=cookie).body |> String
         open(filename, "w") do io
             print(io, content)
         end
@@ -37,7 +39,7 @@ function main()
     input_file = """$(args["year"])/$(args["day"]).in"""
 
     cmd = `julia --project -t 6 $prgrm_file`
-    run(pipeline(cmd, stdin = input_file))
+    run(pipeline(cmd, stdin=input_file))
 end
 
 main()
