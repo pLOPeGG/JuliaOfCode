@@ -1,3 +1,7 @@
 cookie
 
 .venv
+
+# Added by cargo
+
+/target
