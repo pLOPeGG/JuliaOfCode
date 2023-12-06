@@ -1,5 +1,7 @@
 using Base
 using Chain
+using Base.Threads
+using IterTools
 
 struct RangeIntersectError end
 
@@ -143,6 +145,31 @@ function solve1(seeds::Vector{Int}, collection::ConverterCollection)
     minimum(seeds)
 end
 
+function solve_thread(seed, collection::ConverterCollection)
+    pos = "seed"
+    while haskey(collection.converters, pos)
+        converter = collection.converters[pos]
+        pos = converter.to
+        seed = converter.map(seed)
+    end
+    seed
+end
+
+function solve2_par(seeds::Vector{Int}, collection::ConverterCollection)
+    seeds = reshape(seeds, 2, :)
+    seeds = SeedRange.(eachcol(seeds))
+
+    mini = Atomic{Int}(typemax(Int))
+
+    for rs in seeds
+        @inbounds @threads for s in rs.beg:rs.beg+rs.span-1
+            s_value = solve_thread(s, collection)
+            atomic_min!(mini, s_value)
+        end
+    end
+    mini[]
+end
+
 function solve2(seeds::Vector{Int}, collection::ConverterCollection)
     pos = "seed"
     seeds = reshape(seeds, 2, :)
@@ -159,3 +186,4 @@ end
 
 solve1(seeds, collection) |> println
 solve2(seeds, collection) |> println
+solve2_par(seeds, collection) |> println
